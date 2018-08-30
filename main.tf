@@ -14,5 +14,4 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   point_in_time_recovery {
     enabled = "${var.point_in_time_recovery}"
   }
-
 }
