@@ -3,6 +3,12 @@ variable "table_name" {
   type        = "string"
 }
 
+variable "enable_pay_per_request" {
+  description = "Controls how you are charged for read and write throughput and how you manage capacity. If True, DynamoDB charges you for the data reads and writes your application performs on your tables. You do not need to specify how much read and write throughput you expect your application to perform because DynamoDB instantly accommodates your workloads as they ramp up or down. [On-Demand Pricing](https://aws.amazon.com/dynamodb/pricing/on-demand/) If False, you specify the number of `read_capacity_units` and `write_capacity_units` per second that you expect your workload to require. [Provisioned Pricing](https://aws.amazon.com/dynamodb/pricing/provisioned/)"
+  type        = "string"
+  default     = false
+}
+
 variable "hash_key" {
   description = "** Forces new resource ** Must contain only alphanumberic characters, dash (-), underscore (_) or dot (.). Needs to be defined by type in attributes."
   type        = "string"
@@ -15,7 +21,7 @@ variable "range_key" {
 }
 
 variable "read_capacity_units" {
-  description = "Provisioned read throughput. Should be between 5 and 10000"
+  description = "Provisioned read throughput. Should be between 5 and 10000. Ignored if `enable_pay_per_request` is set to `true`."
   type        = "string"
   default     = 5
 }
@@ -27,7 +33,7 @@ variable "table_encryption" {
 }
 
 variable "write_capacity_units" {
-  description = "Provisioned write throughput. Should be between 5 and 10000."
+  description = "Provisioned write throughput. Should be between 5 and 10000. Ignored if `enable_pay_per_request` is set to `true`."
   type        = "string"
   default     = 10
 }
