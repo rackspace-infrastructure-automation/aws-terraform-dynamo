@@ -10,11 +10,7 @@ resource "random_string" "rstring" {
 }
 
 module "dynamo" {
-  source               = "../../module"
-  table_name           = "${random_string.rstring.result}-testTable"
-  hash_key             = "TestHashKey"
-  read_capacity_units  = 6
-  write_capacity_units = 11
+  source = "../../module"
 
   attributes = [
     {
@@ -22,4 +18,9 @@ module "dynamo" {
       type = "S"
     },
   ]
+
+  hash_key             = "TestHashKey"
+  read_capacity_units  = 6
+  table_name           = "${random_string.rstring.result}-testTable"
+  write_capacity_units = 11
 }
