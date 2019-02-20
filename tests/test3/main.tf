@@ -18,7 +18,7 @@ resource "random_string" "prefix" {
 }
 
 module "complex" {
-  source = "../../"
+  source = "../../module"
 
   attributes = [
     {
