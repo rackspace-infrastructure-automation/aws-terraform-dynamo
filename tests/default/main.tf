@@ -11,10 +11,52 @@ locals {
   }
 }
 
-resource "random_string" "prefix" {
+resource "random_string" "rstring" {
   length  = 8
   upper   = false
   special = false
+}
+
+module "dynamo" {
+  source = "../../module"
+
+  attributes = [
+    {
+      name = "TestHashKey"
+      type = "S"
+    },
+  ]
+
+  hash_key             = "TestHashKey"
+  read_capacity_units  = 6
+  table_name           = "${random_string.rstring.result}-testTable"
+  tags                 = "${local.tags}"
+  write_capacity_units = 11
+}
+
+module "advanced" {
+  source = "../../module"
+
+  attributes = [
+    {
+      name = "TestHashKey"
+      type = "S"
+    },
+    {
+      name = "TestRangeKey"
+      type = "S"
+    },
+  ]
+
+  environment            = "Test"
+  hash_key               = "TestHashKey"
+  point_in_time_recovery = "true"
+  range_key              = "TestRangeKey"
+  read_capacity_units    = 20
+  table_encryption_cmk   = "true"
+  table_name             = "${random_string.rstring.result}-advanced"
+  tags                   = "${local.tags}"
+  write_capacity_units   = 5
 }
 
 module "complex" {
@@ -101,7 +143,7 @@ module "complex" {
   stream_enabled         = "true"
   stream_view_type       = "NEW_AND_OLD_IMAGES"
   table_encryption_cmk   = "true"
-  table_name             = "${random_string.prefix.result}-complex"
+  table_name             = "${random_string.rstring.result}-complex"
   tags                   = "${local.tags}"
   write_capacity_units   = 5
 }
