@@ -63,7 +63,7 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   range_key        = "${var.range_key}"
   read_capacity    = "${var.read_capacity_units}"
   stream_enabled   = "${var.stream_enabled}"
-  stream_view_type = "${var.stream_enabled == "true" ? var.stream_view_type : "" }"
+  stream_view_type = "${var.stream_enabled ? var.stream_view_type : "" }"
   write_capacity   = "${var.write_capacity_units}"
 
   attribute              = "${var.attributes}"

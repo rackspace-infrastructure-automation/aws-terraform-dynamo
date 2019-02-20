@@ -53,7 +53,7 @@ variable "read_capacity_units" {
 variable "stream_enabled" {
   description = "Enable the stream setting on the table."
   type        = "string"
-  default     = "false"
+  default     = false
 }
 
 variable "stream_view_type" {

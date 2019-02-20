@@ -5,9 +5,7 @@ provider "aws" {
 
 locals {
   tags = {
-    Environment     = "Test"
-    ServiceProvider = "Rackspace"
-    Terraform       = "true"
+    Terraform = "true"
   }
 }
 
@@ -50,10 +48,10 @@ module "advanced" {
 
   environment            = "Test"
   hash_key               = "TestHashKey"
-  point_in_time_recovery = "true"
+  point_in_time_recovery = true
   range_key              = "TestRangeKey"
   read_capacity_units    = 20
-  table_encryption_cmk   = "true"
+  table_encryption_cmk   = true
   table_name             = "${random_string.rstring.result}-advanced"
   tags                   = "${local.tags}"
   write_capacity_units   = 5
@@ -137,12 +135,12 @@ module "complex" {
     },
   ]
 
-  point_in_time_recovery = "true"
+  point_in_time_recovery = true
   range_key              = "TestRangeKey"
   read_capacity_units    = 20
-  stream_enabled         = "true"
+  stream_enabled         = true
   stream_view_type       = "NEW_AND_OLD_IMAGES"
-  table_encryption_cmk   = "true"
+  table_encryption_cmk   = true
   table_name             = "${random_string.rstring.result}-complex"
   tags                   = "${local.tags}"
   write_capacity_units   = 5
