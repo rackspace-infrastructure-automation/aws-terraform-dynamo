@@ -61,10 +61,10 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
   hash_key         = "${var.hash_key}"
   name             = "${var.table_name}"
   range_key        = "${var.range_key}"
-  read_capacity    = "${var.read_capacity_units}"
+  read_capacity    = "${var.enable_pay_per_request ? 0 : var.read_capacity_units}"
   stream_enabled   = "${var.stream_enabled}"
   stream_view_type = "${var.stream_enabled ? var.stream_view_type : "" }"
-  write_capacity   = "${var.write_capacity_units}"
+  write_capacity   = "${var.enable_pay_per_request ? 0 : var.write_capacity_units}"
 
   attribute              = "${var.attributes}"
   global_secondary_index = "${var.global_secondary_index_maps}"
