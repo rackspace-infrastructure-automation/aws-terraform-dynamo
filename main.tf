@@ -56,7 +56,7 @@ locals {
   }
 }
 
-resource "aws_dynamodb_table" "basic-dynamodb-table" {
+resource "aws_dynamodb_table" "table" {
   billing_mode     = "${var.enable_pay_per_request ? "PAY_PER_REQUEST" : "PROVISIONED" }"
   hash_key         = "${var.hash_key}"
   name             = "${var.table_name}"

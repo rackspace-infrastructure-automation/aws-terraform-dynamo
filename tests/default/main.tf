@@ -27,7 +27,7 @@ module "dynamo" {
 
   hash_key             = "TestHashKey"
   read_capacity_units  = 6
-  table_name           = "${random_string.rstring.result}-testTable"
+  table_name           = "${random_string.rstring.result}-Basic"
   tags                 = "${local.tags}"
   write_capacity_units = 11
 }
@@ -52,7 +52,7 @@ module "advanced" {
   range_key              = "TestRangeKey"
   read_capacity_units    = 20
   table_encryption_cmk   = true
-  table_name             = "${random_string.rstring.result}-advanced"
+  table_name             = "${random_string.rstring.result}-Advanced"
   tags                   = "${local.tags}"
   write_capacity_units   = 5
 }
@@ -141,7 +141,7 @@ module "complex" {
   stream_enabled         = true
   stream_view_type       = "NEW_AND_OLD_IMAGES"
   table_encryption_cmk   = true
-  table_name             = "${random_string.rstring.result}-complex"
+  table_name             = "${random_string.rstring.result}-Complex"
   tags                   = "${local.tags}"
   write_capacity_units   = 5
 }
