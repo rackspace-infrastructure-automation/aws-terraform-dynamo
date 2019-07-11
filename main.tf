@@ -78,6 +78,11 @@ resource "aws_dynamodb_table" "table" {
     enabled = "${var.table_encryption_cmk}"
   }
 
+  ttl {
+    enabled        = "${var.enable_ttl}"
+    attribute_name = "${var.ttl_attribute}"
+  }
+
   tags = "${merge(
     local.tags,
     var.tags

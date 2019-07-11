@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 module "dynamo_table_provisioned" {
-  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.0.3"
+  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.0.6"
 
   table_name             = "<TableName>"
   hash_key               = "<HashKeyName>"
@@ -30,7 +30,7 @@ module "dynamo_table_provisioned" {
 }
 
 module "dynamo_table_pay_per_requst" {
-  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.0.3"
+  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.0.6"
 
   table_name             = "<TableName>"
   hash_key               = "<HashKeyName>"
