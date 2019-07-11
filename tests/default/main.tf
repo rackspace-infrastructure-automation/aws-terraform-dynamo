@@ -144,4 +144,6 @@ module "complex" {
   table_name             = "${random_string.rstring.result}-Complex"
   tags                   = "${local.tags}"
   write_capacity_units   = 5
+  enable_ttl             = true
+  ttl_attribute          = "ttl"
 }

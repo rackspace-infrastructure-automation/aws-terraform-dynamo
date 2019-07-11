@@ -84,3 +84,15 @@ variable "write_capacity_units" {
   type        = "string"
   default     = 10
 }
+
+variable "enable_ttl" {
+  description = "Enable time to live on record."
+  type        = "string"
+  default     = false
+}
+
+variable "ttl_attribute" {
+  description = "The name of the table attribute to store the TTL timestamp in"
+  type        = "string"
+  default     = ""
+}
