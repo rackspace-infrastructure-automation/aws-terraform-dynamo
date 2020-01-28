@@ -9,6 +9,12 @@ variable "enable_pay_per_request" {
   default     = false
 }
 
+variable "enable_ttl" {
+  description = "Enable time to live on record."
+  type        = bool
+  default     = false
+}
+
 variable "environment" {
   description = "Application environment for which this resource is being created. Preferred values are Development, Integration, PreProduction, Production, QA, Staging, or Test."
   type        = string
@@ -79,21 +85,15 @@ variable "tags" {
   default     = {}
 }
 
-variable "write_capacity_units" {
-  description = "Provisioned write throughput. Should be between 5 and 10000. Ignored if `enable_pay_per_request` is set to `true`."
-  type        = number
-  default     = 10
-}
-
-variable "enable_ttl" {
-  description = "Enable time to live on record."
-  type        = bool
-  default     = false
-}
-
 variable "ttl_attribute" {
   description = "The name of the table attribute to store the TTL timestamp in"
   type        = string
   default     = ""
+}
+
+variable "write_capacity_units" {
+  description = "Provisioned write throughput. Should be between 5 and 10000. Ignored if `enable_pay_per_request` is set to `true`."
+  type        = number
+  default     = 10
 }
 
