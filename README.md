@@ -8,19 +8,19 @@ This module creates an AWS DynamoDB table.
 module "basic" {
   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.0.3"
 
-  attributes = [
-    {
-      name = "TestHashKey"
-      type = "S"
-    },
-  ]
-
   environment          = "Test"
   hash_key             = "MyHashKey"
   read_capacity_units  = 10
   table_name           = "myexampletable"
   tags                 = "${local.tags}"
   write_capacity_units = 5
+
+  attributes = [
+    {
+      name = "TestHashKey"
+      type = "S"
+    },
+  ]
 }
 ```
 

@@ -9,19 +9,19 @@
  * module "basic" {
  *   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.0.3"
  *
- *   attributes = [
- *     {
- *       name = "TestHashKey"
- *       type = "S"
- *     },
- *   ]
- *
  *   environment          = "Test"
  *   hash_key             = "MyHashKey"
  *   read_capacity_units  = 10
  *   table_name           = "myexampletable"
  *   tags                 = "${local.tags}"
  *   write_capacity_units = 5
+ *
+ *   attributes = [
+ *     {
+ *       name = "TestHashKey"
+ *       type = "S"
+ *     },
+ *   ]
  * }
  * ```
  *
@@ -50,7 +50,7 @@
 
 terraform {
   required_version = ">= 0.12"
-  
+
   required_providers {
     aws = ">= 2.1.0"
   }
@@ -72,10 +72,12 @@ resource "aws_dynamodb_table" "table" {
   read_capacity    = var.enable_pay_per_request ? 0 : var.read_capacity_units
   stream_enabled   = var.stream_enabled
   stream_view_type = var.stream_enabled ? var.stream_view_type : ""
+  tags             = merge(local.tags, var.tags)
   write_capacity   = var.enable_pay_per_request ? 0 : var.write_capacity_units
 
   dynamic "attribute" {
     for_each = var.attributes
+
     content {
       name = attribute.value.name
       type = attribute.value.type
@@ -84,6 +86,7 @@ resource "aws_dynamodb_table" "table" {
 
   dynamic "global_secondary_index" {
     for_each = var.global_secondary_index_maps
+
     content {
       hash_key           = global_secondary_index.value.hash_key
       name               = global_secondary_index.value.name
@@ -97,6 +100,7 @@ resource "aws_dynamodb_table" "table" {
 
   dynamic "local_secondary_index" {
     for_each = var.local_secondary_index_maps
+
     content {
       name               = local_secondary_index.value.name
       non_key_attributes = lookup(local_secondary_index.value, "non_key_attributes", null)
@@ -117,7 +121,5 @@ resource "aws_dynamodb_table" "table" {
     enabled        = var.enable_ttl
     attribute_name = var.ttl_attribute
   }
-
-  tags = merge(local.tags, var.tags)
 }
 
