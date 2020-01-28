@@ -1,5 +1,9 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
 provider "aws" {
-  version = "~> 1.2"
+  version = "~> 2.2"
   region  = "us-west-2"
 }
 
@@ -52,3 +56,4 @@ module "dynamo_table_pay_per_requst" {
 
   point_in_time_recovery = true
 }
+

@@ -1,5 +1,9 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
 provider "aws" {
-  version = "~> 1.2"
+  version = "~> 2.2"
   region  = "us-west-2"
 }
 
@@ -28,7 +32,7 @@ module "dynamo" {
   hash_key             = "TestHashKey"
   read_capacity_units  = 6
   table_name           = "${random_string.rstring.result}-Basic"
-  tags                 = "${local.tags}"
+  tags                 = local.tags
   write_capacity_units = 11
 }
 
@@ -53,7 +57,7 @@ module "advanced" {
   read_capacity_units    = 20
   table_encryption_cmk   = true
   table_name             = "${random_string.rstring.result}-Advanced"
-  tags                   = "${local.tags}"
+  tags                   = local.tags
   write_capacity_units   = 5
 }
 
@@ -105,7 +109,6 @@ module "complex" {
       hash_key        = "GsiHashKey02"
       range_key       = "GsiRangeKey02"
       projection_type = "INCLUDE"
-
       non_key_attributes = [
         "data2",
         "data1",
@@ -126,7 +129,6 @@ module "complex" {
       name            = "TestLSIInclude"
       range_key       = "TestRangeKey"
       projection_type = "INCLUDE"
-
       non_key_attributes = [
         "data1",
         "data2",
@@ -142,8 +144,9 @@ module "complex" {
   stream_view_type       = "NEW_AND_OLD_IMAGES"
   table_encryption_cmk   = true
   table_name             = "${random_string.rstring.result}-Complex"
-  tags                   = "${local.tags}"
+  tags                   = local.tags
   write_capacity_units   = 5
   enable_ttl             = true
   ttl_attribute          = "ttl"
 }
+
