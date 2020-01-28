@@ -44,6 +44,11 @@ variable "point_in_time_recovery" {
   default     = false
 }
 
+variable "name" {
+  description = "The name of the table, this needs to be unique within a region."
+  type        = string
+}
+
 variable "range_key" {
   description = "**Forces new resource!** RangeType PrimaryKey Name. If used, it will need to be defined by type in attributes"
   type        = string
@@ -72,11 +77,6 @@ variable "table_encryption_cmk" {
   description = "You may choose to use an [AWS Managed CMK](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk) by setting this to `true`. Otherwise, server side table encryption defaults to an [AWS Owned CMK](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk)."
   type        = bool
   default     = false
-}
-
-variable "table_name" {
-  description = "The name of the table, this needs to be unique within a region."
-  type        = string
 }
 
 variable "tags" {

@@ -46,6 +46,18 @@
  * [global secondary index always recreated #3828](https://github.com/terraform-providers/terraform-provider-aws/issues/3828)
  *
  * [DynamoDB Non-Key Attributes Ordering #3807](https://github.com/terraform-providers/terraform-provider-aws/issues/3807)
+ *
+ * ## Terraform 0.12 upgrade
+ *
+ * Several changes were required while adding terraform 0.12 compatibility.  The following changes should be
+ * made when upgrading from a previous release to version 0.12.0 or higher.
+ *
+ * ### Module variables
+ *
+ * The following module variables were updated to better meet current Rackspace style guides:
+ *
+ * - `table_name` -> `name`
+ *
  */
 
 terraform {
@@ -59,7 +71,7 @@ terraform {
 locals {
   tags = {
     Environment     = var.environment
-    Name            = var.table_name
+    Name            = var.name
     ServiceProvider = "Rackspace"
   }
 }
@@ -67,7 +79,7 @@ locals {
 resource "aws_dynamodb_table" "table" {
   billing_mode     = var.enable_pay_per_request ? "PAY_PER_REQUEST" : "PROVISIONED"
   hash_key         = var.hash_key
-  name             = var.table_name
+  name             = var.name
   range_key        = var.range_key
   read_capacity    = var.enable_pay_per_request ? 0 : var.read_capacity_units
   stream_enabled   = var.stream_enabled
