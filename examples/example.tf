@@ -8,13 +8,15 @@ provider "aws" {
 }
 
 module "dynamo_table_provisioned" {
-  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.0.6"
+  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.12.0"
 
-  table_name             = "<TableName>"
-  hash_key               = "<HashKeyName>"
-  range_key              = "<RangeKey>"
   enable_pay_per_request = false
+  hash_key               = "<HashKeyName>"
+  name                   = "<TableName>"
+  point_in_time_recovery = true
+  range_key              = "<RangeKey>"
   read_capacity_units    = 5
+  table_encryption       = true
   write_capacity_units   = 10
 
   attributes = [
@@ -27,19 +29,17 @@ module "dynamo_table_provisioned" {
       type = "N"
     },
   ]
-
-  table_encryption = true
-
-  point_in_time_recovery = true
 }
 
 module "dynamo_table_pay_per_requst" {
-  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.0.6"
+  source = "git@github.com/rackspace-infrastructure-automation/aws-terraform-dynamo//?ref=v0.12.0"
 
-  table_name             = "<TableName>"
-  hash_key               = "<HashKeyName>"
-  range_key              = "<RangeKey>"
   enable_pay_per_request = true
+  hash_key               = "<HashKeyName>"
+  name                   = "<TableName>"
+  point_in_time_recovery = true
+  range_key              = "<RangeKey>"
+  table_encryption       = true
 
   attributes = [
     {
@@ -51,9 +51,5 @@ module "dynamo_table_pay_per_requst" {
       type = "N"
     },
   ]
-
-  table_encryption = true
-
-  point_in_time_recovery = true
 }
 

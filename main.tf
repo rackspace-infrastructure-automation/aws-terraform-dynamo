@@ -7,13 +7,13 @@
  *
  * ```HCL
  * module "basic" {
- *   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.0.3"
+ *   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.12.0"
  *
  *   environment          = "Test"
  *   hash_key             = "MyHashKey"
  *   read_capacity_units  = 10
- *   table_name           = "myexampletable"
- *   tags                 = "${local.tags}"
+ *   name                 = "myexampletable"
+ *   tags                 = local.tags
  *   write_capacity_units = 5
  *
  *   attributes = [
