@@ -1,5 +1,9 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
 provider "aws" {
-  version = "~> 1.2"
+  version = "~> 2.2"
   region  = "us-west-2"
 }
 
@@ -11,12 +15,18 @@ locals {
 
 resource "random_string" "rstring" {
   length  = 8
-  upper   = false
   special = false
+  upper   = false
 }
 
 module "dynamo" {
   source = "../../module"
+
+  hash_key             = "TestHashKey"
+  read_capacity_units  = 6
+  name                 = "${random_string.rstring.result}-Basic"
+  tags                 = local.tags
+  write_capacity_units = 11
 
   attributes = [
     {
@@ -24,16 +34,20 @@ module "dynamo" {
       type = "S"
     },
   ]
-
-  hash_key             = "TestHashKey"
-  read_capacity_units  = 6
-  table_name           = "${random_string.rstring.result}-Basic"
-  tags                 = "${local.tags}"
-  write_capacity_units = 11
 }
 
 module "advanced" {
   source = "../../module"
+
+  environment            = "Test"
+  hash_key               = "TestHashKey"
+  name                   = "${random_string.rstring.result}-Advanced"
+  point_in_time_recovery = true
+  range_key              = "TestRangeKey"
+  read_capacity_units    = 20
+  table_encryption_cmk   = true
+  tags                   = local.tags
+  write_capacity_units   = 5
 
   attributes = [
     {
@@ -45,20 +59,24 @@ module "advanced" {
       type = "S"
     },
   ]
-
-  environment            = "Test"
-  hash_key               = "TestHashKey"
-  point_in_time_recovery = true
-  range_key              = "TestRangeKey"
-  read_capacity_units    = 20
-  table_encryption_cmk   = true
-  table_name             = "${random_string.rstring.result}-Advanced"
-  tags                   = "${local.tags}"
-  write_capacity_units   = 5
 }
 
 module "complex" {
   source = "../../module"
+
+  enable_ttl             = true
+  environment            = "Test"
+  hash_key               = "TestHashKey"
+  name                   = "${random_string.rstring.result}-Complex"
+  point_in_time_recovery = true
+  range_key              = "TestRangeKey"
+  read_capacity_units    = 20
+  stream_enabled         = true
+  stream_view_type       = "NEW_AND_OLD_IMAGES"
+  table_encryption_cmk   = true
+  tags                   = local.tags
+  ttl_attribute          = "ttl"
+  write_capacity_units   = 5
 
   attributes = [
     {
@@ -87,24 +105,22 @@ module "complex" {
     },
   ]
 
-  environment = "Test"
-
   global_secondary_index_maps = [
     {
-      name            = "TestGSIProject"
-      write_capacity  = "5"
-      read_capacity   = "10"
       hash_key        = "GsiHashKey01"
-      range_key       = "GsiRangeKey01"
+      name            = "TestGSIProject"
       projection_type = "ALL"
+      range_key       = "GsiRangeKey01"
+      read_capacity   = "10"
+      write_capacity  = "5"
     },
     {
-      name            = "TestGSIInclude"
-      write_capacity  = "5"
-      read_capacity   = "10"
       hash_key        = "GsiHashKey02"
-      range_key       = "GsiRangeKey02"
+      name            = "TestGSIInclude"
       projection_type = "INCLUDE"
+      range_key       = "GsiRangeKey02"
+      read_capacity   = "10"
+      write_capacity  = "5"
 
       non_key_attributes = [
         "data2",
@@ -113,19 +129,17 @@ module "complex" {
       ]
     },
   ]
-
-  hash_key = "TestHashKey"
 
   local_secondary_index_maps = [
     {
       name            = "TestLSIProjectAll"
-      range_key       = "TestRangeKey"
       projection_type = "ALL"
+      range_key       = "TestRangeKey"
     },
     {
       name            = "TestLSIInclude"
-      range_key       = "TestRangeKey"
       projection_type = "INCLUDE"
+      range_key       = "TestRangeKey"
 
       non_key_attributes = [
         "data1",
@@ -134,16 +148,5 @@ module "complex" {
       ]
     },
   ]
-
-  point_in_time_recovery = true
-  range_key              = "TestRangeKey"
-  read_capacity_units    = 20
-  stream_enabled         = true
-  stream_view_type       = "NEW_AND_OLD_IMAGES"
-  table_encryption_cmk   = true
-  table_name             = "${random_string.rstring.result}-Complex"
-  tags                   = "${local.tags}"
-  write_capacity_units   = 5
-  enable_ttl             = true
-  ttl_attribute          = "ttl"
 }
+
