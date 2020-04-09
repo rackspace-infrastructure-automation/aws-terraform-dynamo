@@ -61,7 +61,7 @@ The following module variables were updated to better meet current Rackspace sty
 
 | Name | Version |
 |------|---------|
-| aws | >= 2.1.0 |
+| aws | >= 2.7.0 |
 
 ## Inputs
 
@@ -72,11 +72,11 @@ The following module variables were updated to better meet current Rackspace sty
 | enable\_ttl | Enable time to live on record. | `bool` | `false` | no |
 | environment | Application environment for which this resource is being created. Preferred values are Development, Integration, PreProduction, Production, QA, Staging, or Test. | `string` | `"Development"` | no |
 | global\_secondary\_index\_maps | A list of maps for each [global secondary index (GSI)](https://www.terraform.io/docs/providers/aws/r/dynamodb_table.html#global_secondary_index-1). Please see [examples](./examples) for usage. | `any` | `[]` | no |
-| hash\_key | \*\*Forces new resource!\*\* Must contain only alphanumberic characters, dash (-), underscore (\_) or dot (.). Needs to be defined by type in attributes. | `string` | n/a | yes |
+| hash\_key | **Forces new resource!** Must contain only alphanumberic characters, dash (-), underscore (\_) or dot (.). Needs to be defined by type in attributes. | `string` | n/a | yes |
 | local\_secondary\_index\_maps | A list of maps for each [local secondary index (LSI)](https://www.terraform.io/docs/providers/aws/r/dynamodb_table.html#local_secondary_index-1). Please see [examples](./examples) for usage. | `any` | `[]` | no |
 | name | The name of the table, this needs to be unique within a region. | `string` | n/a | yes |
 | point\_in\_time\_recovery | Enable point in time recovery for the table. | `bool` | `false` | no |
-| range\_key | \*\*Forces new resource!\*\* RangeType PrimaryKey Name. If used, it will need to be defined by type in attributes | `string` | `""` | no |
+| range\_key | **Forces new resource!** RangeType PrimaryKey Name. If used, it will need to be defined by type in attributes | `string` | `""` | no |
 | read\_capacity\_units | Provisioned read throughput. Should be between 5 and 10000. Ignored if `enable_pay_per_request` is set to `true`. | `number` | `5` | no |
 | stream\_enabled | Enable the stream setting on the table. | `bool` | `false` | no |
 | stream\_view\_type | If using `stream_enabled, you can specify a valid DynamoDB StreamViewType; must be one of: `KEYS\_ONLY`, `NEW\_IMAGE`. `OLD\_IMAGE`, `NEW\_AND\_OLD\_IMAGES | `string` | `""` | no |
