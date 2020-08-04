@@ -7,7 +7,7 @@
  *
  * ```HCL
  * module "basic" {
- *   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.12.0"
+ *   source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.12.2"
  *
  *   environment          = "Test"
  *   hash_key             = "MyHashKey"
@@ -134,4 +134,3 @@ resource "aws_dynamodb_table" "table" {
     attribute_name = var.ttl_attribute
   }
 }
-
