@@ -6,7 +6,7 @@ This module creates an AWS DynamoDB table.
 
 ```HCL
 module "basic" {
-  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.12.0"
+  source = "git@github.com:rackspace-infrastructure-automation/aws-terraform-dynamo/?ref=v0.12.2"
 
   environment          = "Test"
   hash_key             = "MyHashKey"
