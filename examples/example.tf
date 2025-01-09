@@ -1,10 +1,16 @@
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.13"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.0"
+    }
+  }
 }
 
 provider "aws" {
-  version = "~> 2.7"
-  region  = "us-west-2"
+  region = "us-west-2"
 }
 
 module "dynamo_table_provisioned" {

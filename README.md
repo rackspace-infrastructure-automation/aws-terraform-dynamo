@@ -40,7 +40,7 @@ The input data was `["data1", "data2", "data3"]` and we can see that attributes 
 
 The resolution at the moment is to edit the list in your map to match the order in the state file. This should result in a clean plan when no other changes are present.
 
-__References:__
+\_\_References:\_\_
 
 [global secondary index always recreated #3828](https://github.com/terraform-providers/terraform-provider-aws/issues/3828)
 
@@ -57,16 +57,33 @@ The following module variables were updated to better meet current Rackspace sty
 
 - `table_name` -> `name`
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13 |
+| aws | >= 4.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 2.7.0 |
+| aws | >= 4.0 |
+
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_dynamodb_table](https://registry.terraform.io/providers/hashicorp/aws/4.0/docs/resources/dynamodb_table) |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | attributes | List of nested attribute definitions. Only required for hash\_key's (always) and range\_key's (if used) attributes. Attributes have name and type. Type must be a scalar type: S, N, or B for (S)tring, (N)umber or (B)inary data. i.e. [{ name=<hash\_key> type=<data\_type>}]. Terraform documentation: [A note about attributes](https://www.terraform.io/docs/providers/aws/r/dynamodb_table.html#a-note-about-attributes) | `list(map(string))` | n/a | yes |
 | enable\_pay\_per\_request | Controls how you are charged for read and write throughput and how you manage capacity. If True, DynamoDB charges you for the data reads and writes your application performs on your tables. You do not need to specify how much read and write throughput you expect your application to perform because DynamoDB instantly accommodates your workloads as they ramp up or down. [On-Demand Pricing](https://aws.amazon.com/dynamodb/pricing/on-demand/) If False, you specify the number of `read_capacity_units` and `write_capacity_units` per second that you expect your workload to require. [Provisioned Pricing](https://aws.amazon.com/dynamodb/pricing/provisioned/) | `bool` | `false` | no |
 | enable\_ttl | Enable time to live on record. | `bool` | `false` | no |
@@ -92,4 +109,3 @@ The following module variables were updated to better meet current Rackspace sty
 | stream\_arn | ARN for the stream if `stream_enabled` was set to `true`, otherwise returns a string of "null". |
 | table\_arn | Table ARN |
 | table\_name | Table Name |
-
